@@ -11,20 +11,31 @@
     <!-- Header -->
     <header class="app-header">
       <div class="brand">
-        <div class="logo-icon">📊</div>
+        <div class="logo-mark">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M3 15h18"/>
+            <path d="M9 3v18"/>
+            <path d="M15 3v18"/>
+          </svg>
+        </div>
         <div>
-          <h1 class="brand-title">TableGrab <span class="badge-pro">PRO</span></h1>
-          <p class="brand-sub">Instant Table & List Extractor</p>
+          <div class="brand-title">
+            <span>TableGrab</span>
+            <span class="badge-pro" id="proHeaderBadge">PRO</span>
+          </div>
+          <div class="brand-sub">Table & Data Extractor</div>
         </div>
       </div>
-      <button class="upgrade-btn" id="upgradeBtn" title="Unlock Unlimited Exports">
-        ⚡ $4.99 Pro
+      <button class="upgrade-btn" id="upgradeBtn">
+        Upgrade
       </button>
     </header>
 
-    <!-- Scanning / Status Bar -->
+    <!-- Status Bar -->
     <div class="status-bar" id="statusBar">
-      <div class="pulse-dot"></div>
+      <div class="status-indicator"></div>
       <span id="statusText">Scanning active page...</span>
     </div>
 
@@ -32,23 +43,28 @@
     <main class="main-content">
       <!-- Empty State -->
       <div class="empty-state" id="emptyState" style="display: none;">
-        <div class="empty-icon">🔍</div>
+        <div class="empty-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
         <h3>No Tables Detected</h3>
-        <p>We couldn't find any standard tables on this tab. Hover over elements or try our demo page.</p>
-        <button class="primary-btn" id="openDemoBtn">🚀 Open Sample Data Page</button>
+        <p>No standard table structures found on this active tab.</p>
+        <button class="primary-btn" id="openDemoBtn">Open Sample Data Page</button>
       </div>
 
       <!-- Tables Found View -->
       <div class="tables-view" id="tablesView" style="display: none;">
         <div class="selector-row">
-          <label for="tableSelect" class="selector-label">Select Table:</label>
+          <label for="tableSelect" class="selector-label">Target Table</label>
           <select id="tableSelect" class="table-dropdown"></select>
         </div>
 
         <!-- Table Preview -->
         <div class="preview-container">
           <div class="preview-header">
-            <span class="preview-title" id="previewTitle">Data Preview</span>
+            <span class="preview-title">Preview</span>
             <span class="row-count-badge" id="rowCountBadge">0 rows</span>
           </div>
           <div class="table-scroll" id="tableScroll">
@@ -59,26 +75,39 @@
         <!-- Export Action Buttons -->
         <div class="action-grid">
           <button class="action-btn action-primary" id="exportCsvBtn">
-            <span class="btn-icon">📥</span>
-            <span>Download CSV</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Export CSV</span>
           </button>
           <button class="action-btn action-secondary" id="copyClipboardBtn">
-            <span class="btn-icon">📋</span>
-            <span>Copy (Excel/Sheets)</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>Copy TSV</span>
           </button>
           <button class="action-btn action-secondary" id="exportJsonBtn">
-            <span class="btn-icon">🗄️</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
             <span>JSON</span>
           </button>
         </div>
       </div>
     </main>
 
-    <!-- Footer / Pro Status Banner -->
+    <!-- Footer -->
     <footer class="app-footer">
-      <div class="pro-banner">
-        <span>🔒 Free: Max 25 rows/table</span>
-        <a href="#" id="proUpgradeLink" class="pro-link">Upgrade to Lifetime Unlimited</a>
+      <div class="pro-banner" id="footerBanner">
+        <span>Free tier: Max 25 rows/table</span>
+        <a href="#" id="proUpgradeLink" class="pro-link">Upgrade to Lifetime</a>
       </div>
     </footer>
 
@@ -86,21 +115,20 @@
     <div class="modal-backdrop" id="upgradeModal" style="display: none;">
       <div class="modal-box">
         <button class="modal-close" id="modalCloseBtn">&times;</button>
-        <div class="modal-icon">⭐</div>
-        <h2>Unlock TableGrab Pro</h2>
-        <p class="modal-desc">Export thousands of rows, unlock JSON extraction, and scrape paginated tables with zero limits.</p>
+        <h2>TableGrab Pro</h2>
+        <p class="modal-desc">Unlimited exports, full JSON extraction, and high-volume table parsing without limits.</p>
         <ul class="modal-perks">
-          <li>✅ Unlimited rows & tables forever</li>
-          <li>✅ Instant export to CSV, Excel & JSON</li>
-          <li>✅ Smart auto-pagination scraper</li>
-          <li>✅ Works completely offline & private</li>
+          <li>Unlimited rows and tables</li>
+          <li>CSV, TSV, and JSON formats</li>
+          <li>100% private and on-device processing</li>
+          <li>Lifetime license with all future updates</li>
         </ul>
         <div class="price-tag">
           <span class="price-val">$4.99</span>
-          <span class="price-period">one-time lifetime access</span>
+          <span class="price-period">one-time payment</span>
         </div>
-        <button class="checkout-btn" id="startCheckoutBtn">Get Lifetime Access Now</button>
-        <p class="money-back">⚡ Powered by Stripe / Lemon Squeezy • Direct bank checkout</p>
+        <button class="checkout-btn" id="startCheckoutBtn">Unlock Lifetime Access</button>
+        <p class="money-back">Processed securely via Lemon Squeezy</p>
       </div>
     </div>
   </div>

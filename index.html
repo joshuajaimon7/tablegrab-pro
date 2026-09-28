@@ -3,39 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TableGrab Pro - Instant Table & List Extractor for Chrome</title>
-  <meta name="description" content="Export any HTML table or list on any website to clean CSV, Excel, or JSON in 1 click. Fast, minimal, and 100% private.">
+  <title>TableGrab Pro — Data Table & List Extractor for Chrome</title>
+  <meta name="description" content="Export HTML tables and repeating lists to clean CSV, Excel, or JSON in one click. Minimal, fast, and 100% private.">
   <link rel="icon" type="image/png" href="icons/icon48.png">
   <style>
     :root {
-      --bg: #090a0f;
-      --surface: #10121a;
-      --surface-subtle: #161922;
-      --border: #1e222d;
-      --border-medium: #2a3040;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --accent: #3b82f6;
-      --accent-hover: #2563eb;
+      --bg: #000000;
+      --surface: #121214;
+      --surface-elevated: #1c1c1e;
+      --border: #242426;
+      --border-medium: #333336;
+      --text: #f5f5f7;
+      --text-muted: #86868b;
+      --text-dim: #545458;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-      line-height: 1.5;
-      letter-spacing: -0.01em;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+      line-height: 1.45;
+      letter-spacing: -0.015em;
     }
     .container {
-      max-width: 980px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     /* Navbar */
     header {
-      padding: 24px 0;
+      padding: 20px 0;
       border-bottom: 1px solid var(--border);
     }
     nav {
@@ -50,18 +48,18 @@
       text-decoration: none;
       color: var(--text);
       font-weight: 600;
-      font-size: 16px;
+      font-size: 14.5px;
     }
-    .brand-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-medium);
-      border-radius: 8px;
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      color: var(--text);
     }
     .nav-links {
       display: flex;
@@ -71,16 +69,16 @@
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 13.5px;
+      font-size: 13px;
       transition: color 0.15s ease;
     }
     .nav-link:hover { color: var(--text); }
     .btn-nav {
-      background: var(--text);
-      color: var(--bg);
+      background: #ffffff;
+      color: #000000;
       font-weight: 600;
-      font-size: 12.5px;
-      padding: 8px 14px;
+      font-size: 12px;
+      padding: 6px 12px;
       border-radius: 6px;
       text-decoration: none;
       transition: opacity 0.15s ease;
@@ -95,33 +93,33 @@
     .pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-medium);
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
       color: var(--text-muted);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 500;
       padding: 4px 12px;
-      border-radius: 9999px;
+      border-radius: 980px;
       margin-bottom: 24px;
     }
-    .pill-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; }
+    .pill-dot { width: 5px; height: 5px; background: var(--text-muted); border-radius: 50%; }
     .hero h1 {
-      font-size: clamp(34px, 5.5vw, 52px);
+      font-size: clamp(32px, 5vw, 48px);
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.15;
-      margin-bottom: 20px;
-      max-width: 780px;
+      margin-bottom: 18px;
+      max-width: 720px;
       margin-left: auto;
       margin-right: auto;
     }
     .hero p {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 36px auto;
-      line-height: 1.6;
+      max-width: 580px;
+      margin: 0 auto 34px auto;
+      line-height: 1.55;
     }
     .hero-actions {
       display: flex;
@@ -131,30 +129,27 @@
     }
     .btn-primary {
       background: #ffffff;
-      color: #090a0f;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
+      color: #000000;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       transition: opacity 0.15s ease;
     }
     .btn-primary:hover { opacity: 0.92; }
     .btn-secondary {
       background: var(--surface);
       color: var(--text);
-      border: 1px solid var(--border-medium);
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 14px;
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 13px;
       font-weight: 500;
       text-decoration: none;
       transition: background 0.15s ease;
     }
-    .btn-secondary:hover { background: var(--surface-subtle); }
+    .btn-secondary:hover { background: var(--surface-elevated); }
 
     /* Features Grid */
     .features {
@@ -163,42 +158,50 @@
     }
     .section-head {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 44px;
     }
     .section-head h2 {
-      font-size: 26px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 600;
       letter-spacing: -0.02em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .section-head p {
       color: var(--text-muted);
-      font-size: 15px;
+      font-size: 14px;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      border-radius: 8px;
+      padding: 22px;
     }
-    .card-icon {
-      font-size: 22px;
+    .card-icon-box {
+      width: 28px;
+      height: 28px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 14px;
+      color: var(--text);
     }
     .card h3 {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .card p {
-      font-size: 13.5px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     /* Pricing */
@@ -207,48 +210,48 @@
       border-top: 1px solid var(--border);
     }
     .pricing-card {
-      max-width: 480px;
+      max-width: 440px;
       margin: 0 auto;
       background: var(--surface);
       border: 1px solid var(--border-medium);
-      border-radius: 14px;
-      padding: 36px 32px;
+      border-radius: 10px;
+      padding: 32px 28px;
       text-align: center;
     }
     .price-amount {
-      font-size: 42px;
-      font-weight: 800;
+      font-size: 38px;
+      font-weight: 700;
       color: var(--text);
-      margin: 16px 0 6px 0;
+      margin: 14px 0 4px 0;
     }
     .price-sub {
       color: var(--text-muted);
-      font-size: 13px;
-      margin-bottom: 24px;
+      font-size: 12px;
+      margin-bottom: 22px;
     }
     .pricing-list {
       list-style: none;
       text-align: left;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 30px;
-      padding: 16px;
-      background: var(--surface-subtle);
-      border-radius: 8px;
+      gap: 10px;
+      margin-bottom: 26px;
+      padding: 14px;
+      background: var(--surface-elevated);
+      border-radius: 6px;
       border: 1px solid var(--border);
     }
     .pricing-list li { display: flex; align-items: center; gap: 8px; color: var(--text); }
 
     /* Footer */
     footer {
-      padding: 40px 0;
+      padding: 36px 0;
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--text-dim);
-      font-size: 13px;
+      font-size: 12px;
     }
     footer a { color: var(--text-muted); text-decoration: none; margin: 0 10px; }
     footer a:hover { color: var(--text); }
@@ -259,14 +262,22 @@
     <header>
       <nav>
         <a href="#" class="brand">
-          <div class="brand-icon">📊</div>
-          <span>TableGrab Pro</span>
+          <div class="brand-mark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18"/>
+              <path d="M3 15h18"/>
+              <path d="M9 3v18"/>
+              <path d="M15 3v18"/>
+            </svg>
+          </div>
+          <span>TableGrab</span>
         </a>
         <div class="nav-links">
           <a href="#features" class="nav-link">Features</a>
           <a href="#pricing" class="nav-link">Pricing</a>
           <a href="privacy.html" class="nav-link">Privacy</a>
-          <a href="#pricing" class="btn-nav">Get Started</a>
+          <a href="#pricing" class="btn-nav">Download</a>
         </div>
       </nav>
     </header>
@@ -274,84 +285,112 @@
     <section class="hero">
       <div class="pill">
         <span class="pill-dot"></span>
-        <span>Version 1.0 Available for Google Chrome</span>
+        <span>Chrome Extension</span>
       </div>
-      <h1>Extract Any Web Table or List to CSV in One Click</h1>
-      <p>Hover over any table, view instant live previews, and export clean formatted spreadsheets ready for Excel, Google Sheets, or JSON. 100% private and runs entirely in your browser.</p>
+      <h1>Extract Any Web Table or List to CSV</h1>
+      <p>Hover over any table, view instant live previews, and export clean formatted spreadsheets ready for Excel, Google Sheets, or JSON. Private and on-device.</p>
       <div class="hero-actions">
-        <a href="#pricing" class="btn-primary">
-          <span>Add to Chrome</span>
-          <span>→</span>
-        </a>
-        <a href="demo-test.html" class="btn-secondary">View Live Interactive Demo</a>
+        <a href="#pricing" class="btn-primary">Add to Chrome</a>
+        <a href="demo-test.html" class="btn-secondary">Interactive Test Grounds</a>
       </div>
     </section>
 
     <section class="features" id="features">
       <div class="section-head">
-        <h2>Built for Speed, Accuracy, and Privacy</h2>
-        <p>No messy Python scripts, no slow cloud scrapers.</p>
+        <h2>Designed for Speed and Discretion</h2>
+        <p>Zero tracking, client-side extraction, minimal footprint.</p>
       </div>
       <div class="grid">
         <div class="card">
-          <div class="card-icon">⚡</div>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
           <h3>In-Page Hover Inspector</h3>
-          <p>Move your cursor over any table on Wikipedia, Yahoo Finance, Amazon, or internal dashboards to see real-time row and column counts.</p>
+          <p>Highlight any table on any website to inspect real-time row and column dimensions with an unobtrusive tool badge.</p>
         </div>
         <div class="card">
-          <div class="card-icon">🔒</div>
-          <h3>100% Offline & Private</h3>
-          <p>Zero data ever leaves your device. All parsing happens locally inside your browser memory. We never track or sell your browsing history.</p>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3>Client-Side Privacy</h3>
+          <p>Zero data is transmitted to external servers. All extraction and formatting occurs within local browser memory.</p>
         </div>
         <div class="card">
-          <div class="card-icon">📋</div>
-          <h3>Sheet-Ready Clipboard</h3>
-          <p>Copy formatted tab-separated values straight to your clipboard and hit ⌘+V directly into Google Sheets or Microsoft Excel.</p>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </div>
+          <h3>Clipboard Ready</h3>
+          <p>Copies tab-separated values directly to clipboard for immediate paste into Google Sheets or Microsoft Excel.</p>
         </div>
         <div class="card">
-          <div class="card-icon">🗄️</div>
-          <h3>Clean CSV & JSON Formats</h3>
-          <p>RFC 4180 standard escaping handles quotes, commas, and multiline text cleanly without breaking your spreadsheet columns.</p>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <h3>Standard CSV & JSON</h3>
+          <p>RFC 4180 compliant escaping handles quotes, commas, and multiline text without breaking columns.</p>
         </div>
         <div class="card">
-          <div class="card-icon">🎯</div>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </div>
           <h3>Multi-Table Detection</h3>
-          <p>Pages with 5+ tables? The popup lists each table separately with row counts so you can preview and download only what you need.</p>
+          <p>Detects multiple tables per page with an active selector and live scrollable preview.</p>
         </div>
         <div class="card">
-          <div class="card-icon">💎</div>
-          <h3>One-Time Lifetime Access</h3>
-          <p>No predatory recurring subscriptions. Pay once, use forever across all your Chrome browsers.</p>
+          <div class="card-icon-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h3>Lifetime License</h3>
+          <p>One-time purchase model. No recurring subscriptions or usage gates.</p>
         </div>
       </div>
     </section>
 
     <section class="pricing" id="pricing">
       <div class="section-head">
-        <h2>Simple, Transparent Pricing</h2>
-        <p>Start free. Upgrade once when you need unlimited power.</p>
+        <h2>License</h2>
+        <p>Simple one-time access.</p>
       </div>
       <div class="pricing-card">
         <h3>Lifetime License</h3>
         <div class="price-amount">$4.99</div>
         <p class="price-sub">One-time payment • Lifetime updates • Unlimited exports</p>
         <ul class="pricing-list">
-          <li>✓ Unlimited rows and table exports</li>
-          <li>✓ 1-Click CSV and TSV spreadsheet export</li>
-          <li>✓ Clean JSON structured data export</li>
-          <li>✓ Works on all websites and intranets</li>
-          <li>✓ 100% client-side data privacy</li>
+          <li>Unlimited rows and tables</li>
+          <li>CSV, TSV, and JSON export</li>
+          <li>100% on-device processing</li>
+          <li>Future updates included</li>
         </ul>
-        <a href="#" class="btn-primary" style="width: 100%; justify-content: center;">Get Lifetime Access</a>
+        <a href="#" class="btn-primary" style="display: block; width: 100%; text-align: center;">Get License</a>
       </div>
     </section>
 
     <footer>
-      <p>&copy; 2026 TableGrab Pro by TinyStack Labs. All rights reserved.</p>
+      <p>&copy; 2026 TableGrab. All rights reserved.</p>
       <div style="margin-top: 10px;">
         <a href="privacy.html">Privacy Policy</a>
-        <a href="demo-test.html">Demo Grounds</a>
-        <a href="https://github.com/joshuajaimon7/tablegrab-pro">GitHub Repository</a>
+        <a href="demo-test.html">Test Grounds</a>
+        <a href="https://github.com/joshuajaimon7/tablegrab-pro">Source Repository</a>
       </div>
     </footer>
   </div>

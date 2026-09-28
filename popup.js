@@ -1,4 +1,4 @@
-// TableGrab Pro - Popup Controller
+// TableGrab Pro - Popup Controller (Clean Minimalist Edition)
 
 document.addEventListener('DOMContentLoaded', async () => {
   const statusBar = document.getElementById('statusBar');
@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tablesView = document.getElementById('tablesView');
   const tableSelect = document.getElementById('tableSelect');
   const previewTable = document.getElementById('previewTable');
-  const previewTitle = document.getElementById('previewTitle');
   const rowCountBadge = document.getElementById('rowCountBadge');
   const openDemoBtn = document.getElementById('openDemoBtn');
 
@@ -22,6 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const upgradeModal = document.getElementById('upgradeModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const startCheckoutBtn = document.getElementById('startCheckoutBtn');
+  const proHeaderBadge = document.getElementById('proHeaderBadge');
+  const footerBanner = document.getElementById('footerBanner');
 
   let detectedTables = [];
   let currentActiveTabId = null;
@@ -34,9 +35,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const res = await chrome.storage.local.get(['tablegrab_is_pro']);
     isProUser = !!res.tablegrab_is_pro;
     if (isProUser) {
-      document.querySelector('.badge-pro').innerText = 'PRO ACTIVE';
+      proHeaderBadge.innerText = 'PRO ACTIVE';
       upgradeBtn.style.display = 'none';
-      document.querySelector('.pro-banner').innerHTML = '<span>⭐ Pro Member: Unlimited Exports Active</span>';
+      footerBanner.innerHTML = '<span>Pro License Active</span>';
     }
   }
 
@@ -56,13 +57,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   modalCloseBtn.addEventListener('click', hideUpgrade);
 
   startCheckoutBtn.addEventListener('click', () => {
-    // In production, open your Lemon Squeezy / ExtensionPay link:
+    // In production, open your Lemon Squeezy checkout link:
     // chrome.tabs.create({ url: 'https://yourcheckoutlink.lemonsqueezy.com/checkout/buy/...' });
     
-    // For local testing, we provide a 1-click test unlock:
-    if (confirm('Simulate purchasing TableGrab Pro for $4.99 and activate lifetime license?')) {
+    // For local testing, 1-click test unlock:
+    if (confirm('Activate TableGrab Pro lifetime license?')) {
       chrome.storage.local.set({ tablegrab_is_pro: true }, () => {
-        alert('🎉 TableGrab Pro unlocked! Enjoy unlimited exports.');
+        alert('TableGrab Pro license activated.');
         location.reload();
       });
     }
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       detectedTables = response.tables;
-      statusText.innerText = `⚡ ${detectedTables.length} Table${detectedTables.length > 1 ? 's' : ''} ready to export`;
+      statusText.innerText = `${detectedTables.length} table${detectedTables.length > 1 ? 's' : ''} detected`;
       renderTableSelector();
       loadTableData(0);
       emptyState.style.display = 'none';
@@ -112,7 +113,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     requestScan();
   } catch (err) {
-    // If scripting is blocked (e.g. chrome:// internal pages)
     requestScan();
   }
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     detectedTables.forEach((tbl, idx) => {
       const opt = document.createElement('option');
       opt.value = idx;
-      opt.text = `Table #${idx + 1} (${tbl.rowCount} rows × ${tbl.colCount} cols)`;
+      opt.text = `Table ${idx + 1} (${tbl.rowCount} rows × ${tbl.colCount} cols)`;
       tableSelect.appendChild(opt);
     });
 
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     previewTable.innerHTML = '';
     if (!data || data.length === 0) return;
 
-    rowCountBadge.innerText = `${data.length} rows total`;
+    rowCountBadge.innerText = `${data.length} rows`;
 
     // Header
     const thead = document.createElement('thead');
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (isProUser) return activeTableFullData;
     // Free tier limitation
     if (activeTableFullData.length > ROW_LIMIT_FREE + 1) {
-      alert(`⚠️ Free Tier Notice: Exporting first ${ROW_LIMIT_FREE} rows. Upgrade to Pro ($4.99) for unlimited rows.`);
+      alert(`Free Tier: Exporting first ${ROW_LIMIT_FREE} rows. Upgrade to Pro for unlimited rows.`);
       return activeTableFullData.slice(0, ROW_LIMIT_FREE + 1);
     }
     return activeTableFullData;
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = getSanitizedData();
     if (data.length === 0) return;
     const csv = toCSV(data);
-    triggerDownload(csv, `tablegrab_export_${Date.now()}.csv`, 'text/csv;charset=utf-8;');
+    triggerDownload(csv, `tablegrab_${Date.now()}.csv`, 'text/csv;charset=utf-8;');
   });
 
   // Copy to Clipboard (TSV)
@@ -232,8 +232,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tsv = toTSV(data);
     navigator.clipboard.writeText(tsv).then(() => {
       const orig = copyClipboardBtn.innerHTML;
-      copyClipboardBtn.innerHTML = '<span>✅</span><span>Copied!</span>';
-      setTimeout(() => copyClipboardBtn.innerHTML = orig, 1800);
+      copyClipboardBtn.innerHTML = '<span>Copied</span>';
+      setTimeout(() => copyClipboardBtn.innerHTML = orig, 1600);
     });
   });
 
@@ -250,6 +250,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return obj;
     });
     const jsonStr = JSON.stringify(rows, null, 2);
-    triggerDownload(jsonStr, `tablegrab_export_${Date.now()}.json`, 'application/json');
+    triggerDownload(jsonStr, `tablegrab_${Date.now()}.json`, 'application/json');
   });
 });

@@ -1,23 +1,20 @@
-// TableGrab Pro - Content Script
-// Inspects, highlights, and extracts table and list data
+// TableGrab Pro - Content Script (Clean Minimalist Edition)
 
 (function () {
   let activeTable = null;
   let badgeElement = null;
   let hideTimeout = null;
 
-  // Utility: Clean cell text
+  // Clean cell text
   function cleanText(text) {
     if (!text) return '';
     return text.replace(/\s+/g, ' ').trim();
   }
 
-  // Parse table element to 2D array of strings
+  // Parse table element to 2D array
   function parseTable(tableEl) {
     const rows = [];
     const trElements = Array.from(tableEl.querySelectorAll('tr'));
-
-    // If no <tr>, try direct children or role="row"
     const targetRows = trElements.length > 0 
       ? trElements 
       : Array.from(tableEl.querySelectorAll('[role="row"]'));
@@ -26,7 +23,6 @@
       const rowData = [];
       const cells = Array.from(tr.querySelectorAll('th, td, [role="columnheader"], [role="cell"]'));
       cells.forEach((cell) => {
-        // Strip out hidden elements or scripts
         const clone = cell.cloneNode(true);
         clone.querySelectorAll('script, style, noscript, svg').forEach(s => s.remove());
         rowData.push(cleanText(clone.innerText || clone.textContent));
@@ -39,7 +35,7 @@
     return rows;
   }
 
-  // Convert 2D array to CSV string compliant with RFC 4180
+  // Convert 2D array to CSV
   function toCSV(data) {
     return data.map(row => 
       row.map(val => {
@@ -52,26 +48,12 @@
     ).join('\r\n');
   }
 
-  // Convert 2D array to TSV (for direct Excel/Google Sheets clipboard paste)
+  // Convert 2D array to TSV
   function toTSV(data) {
     return data.map(row => row.join('\t')).join('\n');
   }
 
-  // Convert 2D array to JSON
-  function toJSON(data) {
-    if (data.length === 0) return '[]';
-    const headers = data[0].map((h, i) => h || `Column_${i + 1}`);
-    const rows = data.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => {
-        obj[h] = row[i] || '';
-      });
-      return obj;
-    });
-    return JSON.stringify(rows, null, 2);
-  }
-
-  // Trigger file download in browser
+  // Trigger file download
   function downloadFile(content, fileName, mimeType) {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
@@ -93,17 +75,17 @@
 
     const toast = document.createElement('div');
     toast.id = 'tablegrab-toast';
-    toast.innerHTML = `<span>✨</span> <span>${message}</span>`;
+    toast.innerText = message;
     document.body.appendChild(toast);
 
     setTimeout(() => {
       if (toast.parentNode) {
-        toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        toast.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(15px)';
-        setTimeout(() => toast.remove(), 300);
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 250);
       }
-    }, 2800);
+    }, 2400);
   }
 
   // Floating Action Badge on Table Hover
@@ -113,9 +95,9 @@
     badgeElement = document.createElement('div');
     badgeElement.id = 'tablegrab-badge';
     badgeElement.innerHTML = `
-      <div class="tablegrab-badge-info" id="tablegrab-badge-text">📊 Table</div>
-      <button class="tablegrab-btn" id="tablegrab-csv-btn">📥 CSV</button>
-      <button class="tablegrab-btn tablegrab-btn-secondary" id="tablegrab-copy-btn">📋 Copy</button>
+      <div class="tablegrab-badge-info" id="tablegrab-badge-text">Table</div>
+      <button class="tablegrab-btn" id="tablegrab-csv-btn">Export CSV</button>
+      <button class="tablegrab-btn tablegrab-btn-secondary" id="tablegrab-copy-btn">Copy</button>
     `;
 
     badgeElement.addEventListener('mouseenter', () => {
@@ -131,9 +113,9 @@
       if (!activeTable) return;
       const data = parseTable(activeTable);
       const csv = toCSV(data);
-      const host = window.location.hostname.replace(/\./g, '_');
+      const host = window.location.hostname.replace(/\./g, '_') || 'page';
       downloadFile(csv, `tablegrab_${host}_${Date.now()}.csv`, 'text/csv;charset=utf-8;');
-      showToast(`Exported ${data.length} rows to CSV!`);
+      showToast(`Exported ${data.length} rows to CSV`);
     });
 
     badgeElement.querySelector('#tablegrab-copy-btn').addEventListener('click', (e) => {
@@ -142,7 +124,7 @@
       const data = parseTable(activeTable);
       const tsv = toTSV(data);
       navigator.clipboard.writeText(tsv).then(() => {
-        showToast(`Copied ${data.length} rows to clipboard! Ready to paste in Excel/Sheets.`);
+        showToast(`Copied ${data.length} rows to clipboard`);
       });
     });
 
@@ -156,8 +138,8 @@
     const scrollX = window.scrollX;
     const scrollY = window.scrollY;
 
-    const top = Math.max(10, scrollY + rect.top - 42);
-    const left = Math.max(10, scrollX + rect.left + 8);
+    const top = Math.max(8, scrollY + rect.top - 36);
+    const left = Math.max(8, scrollX + rect.left + 4);
 
     badge.style.top = `${top}px`;
     badge.style.left = `${left}px`;
@@ -165,7 +147,7 @@
 
     const rowCount = tableEl.querySelectorAll('tr, [role="row"]').length;
     const colCount = tableEl.querySelector('tr, [role="row"]')?.children.length || 0;
-    document.getElementById('tablegrab-badge-text').innerText = `📊 ${rowCount}r × ${colCount}c`;
+    document.getElementById('tablegrab-badge-text').innerText = `${rowCount} × ${colCount}`;
   }
 
   function hideBadge() {
@@ -195,7 +177,7 @@
     if (table && table === activeTable) {
       hideTimeout = setTimeout(() => {
         hideBadge();
-      }, 350);
+      }, 300);
     }
   }, true);
 
@@ -232,6 +214,4 @@
       return true;
     }
   });
-
-  console.log('[TableGrab Pro] In-page inspector active.');
 })();
