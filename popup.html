@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableGrab Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">📊</div>
+        <div>
+          <h1 class="brand-title">TableGrab <span class="badge-pro">PRO</span></h1>
+          <p class="brand-sub">Instant Table & List Extractor</p>
+        </div>
+      </div>
+      <button class="upgrade-btn" id="upgradeBtn" title="Unlock Unlimited Exports">
+        ⚡ $4.99 Pro
+      </button>
+    </header>
+
+    <!-- Scanning / Status Bar -->
+    <div class="status-bar" id="statusBar">
+      <div class="pulse-dot"></div>
+      <span id="statusText">Scanning active page...</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <h3>No Tables Detected</h3>
+        <p>We couldn't find any standard tables on this tab. Hover over elements or try our demo page.</p>
+        <button class="primary-btn" id="openDemoBtn">🚀 Open Sample Data Page</button>
+      </div>
+
+      <!-- Tables Found View -->
+      <div class="tables-view" id="tablesView" style="display: none;">
+        <div class="selector-row">
+          <label for="tableSelect" class="selector-label">Select Table:</label>
+          <select id="tableSelect" class="table-dropdown"></select>
+        </div>
+
+        <!-- Table Preview -->
+        <div class="preview-container">
+          <div class="preview-header">
+            <span class="preview-title" id="previewTitle">Data Preview</span>
+            <span class="row-count-badge" id="rowCountBadge">0 rows</span>
+          </div>
+          <div class="table-scroll" id="tableScroll">
+            <table class="preview-table" id="previewTable"></table>
+          </div>
+        </div>
+
+        <!-- Export Action Buttons -->
+        <div class="action-grid">
+          <button class="action-btn action-primary" id="exportCsvBtn">
+            <span class="btn-icon">📥</span>
+            <span>Download CSV</span>
+          </button>
+          <button class="action-btn action-secondary" id="copyClipboardBtn">
+            <span class="btn-icon">📋</span>
+            <span>Copy (Excel/Sheets)</span>
+          </button>
+          <button class="action-btn action-secondary" id="exportJsonBtn">
+            <span class="btn-icon">🗄️</span>
+            <span>JSON</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer / Pro Status Banner -->
+    <footer class="app-footer">
+      <div class="pro-banner">
+        <span>🔒 Free: Max 25 rows/table</span>
+        <a href="#" id="proUpgradeLink" class="pro-link">Upgrade to Lifetime Unlimited</a>
+      </div>
+    </footer>
+
+    <!-- Upgrade Modal -->
+    <div class="modal-backdrop" id="upgradeModal" style="display: none;">
+      <div class="modal-box">
+        <button class="modal-close" id="modalCloseBtn">&times;</button>
+        <div class="modal-icon">⭐</div>
+        <h2>Unlock TableGrab Pro</h2>
+        <p class="modal-desc">Export thousands of rows, unlock JSON extraction, and scrape paginated tables with zero limits.</p>
+        <ul class="modal-perks">
+          <li>✅ Unlimited rows & tables forever</li>
+          <li>✅ Instant export to CSV, Excel & JSON</li>
+          <li>✅ Smart auto-pagination scraper</li>
+          <li>✅ Works completely offline & private</li>
+        </ul>
+        <div class="price-tag">
+          <span class="price-val">$4.99</span>
+          <span class="price-period">one-time lifetime access</span>
+        </div>
+        <button class="checkout-btn" id="startCheckoutBtn">Get Lifetime Access Now</button>
+        <p class="money-back">⚡ Powered by Stripe / Lemon Squeezy • Direct bank checkout</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

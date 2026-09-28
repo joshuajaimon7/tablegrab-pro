@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableGrab Pro - Test & Demo Page</title>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #10121a;
+      --surface-subtle: #161922;
+      --border: #1e222d;
+      --border-medium: #2a3040;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      padding: 40px 20px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .header-banner {
+      background: var(--surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-banner h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+    .header-banner p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      margin-top: 4px;
+    }
+    .badge-test {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-medium);
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 30px 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #c4b5fd;
+    }
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    th {
+      background: #1a233a;
+      color: #e2e8f0;
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .badge-yellow { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-banner">
+      <div>
+        <h1>📊 TableGrab Pro Test Grounds</h1>
+        <p>Hover your mouse over any table below to see the instant purple glow & action badge, or click the extension icon in your Chrome toolbar!</p>
+      </div>
+      <span class="badge-test">⚡ Live Test Ground</span>
+    </div>
+
+    <!-- Table 1: E-commerce Product Catalog -->
+    <div class="section-title">🛒 E-Commerce Inventory & Sales Data (Table #1)</div>
+    <div class="table-card">
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Units Sold</th>
+            <th>Stock Status</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PRO-001</td>
+            <td>Wireless Noise-Canceling Headphones</td>
+            <td>Audio Gear</td>
+            <td>$249.99</td>
+            <td>1,420</td>
+            <td><span class="badge badge-green">In Stock</span></td>
+            <td>⭐ 4.8</td>
+          </tr>
+          <tr>
+            <td>PRO-002</td>
+            <td>Mechanical Ergonomic Keyboard (RGB)</td>
+            <td>Peripherals</td>
+            <td>$129.50</td>
+            <td>890</td>
+            <td><span class="badge badge-green">In Stock</span></td>
+            <td>⭐ 4.7</td>
+          </tr>
+          <tr>
+            <td>PRO-003</td>
+            <td>Ultra-Wide 34" Curved Studio Monitor</td>
+            <td>Displays</td>
+            <td>$699.00</td>
+            <td>312</td>
+            <td><span class="badge badge-yellow">Low Stock (4)</span></td>
+            <td>⭐ 4.9</td>
+          </tr>
+          <tr>
+            <td>PRO-004</td>
+            <td>Precision Wireless Gaming Mouse</td>
+            <td>Peripherals</td>
+            <td>$79.99</td>
+            <td>2,150</td>
+            <td><span class="badge badge-green">In Stock</span></td>
+            <td>⭐ 4.6</td>
+          </tr>
+          <tr>
+            <td>PRO-005</td>
+            <td>Thunderbolt 4 Docking Station (12-in-1)</td>
+            <td>Accessories</td>
+            <td>$189.00</td>
+            <td>640</td>
+            <td><span class="badge badge-blue">Restocking</span></td>
+            <td>⭐ 4.5</td>
+          </tr>
+          <tr>
+            <td>PRO-006</td>
+            <td>Studio Condenser USB Microphone</td>
+            <td>Audio Gear</td>
+            <td>$149.99</td>
+            <td>975</td>
+            <td><span class="badge badge-green">In Stock</span></td>
+            <td>⭐ 4.8</td>
+          </tr>
+          <tr>
+            <td>PRO-007</td>
+            <td>Adjustable Dual Monitor Arm Stand</td>
+            <td>Furniture</td>
+            <td>$89.95</td>
+            <td>510</td>
+            <td><span class="badge badge-green">In Stock</span></td>
+            <td>⭐ 4.4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table 2: B2B Leads Directory -->
+    <div class="section-title">💼 High-Value B2B Prospect Directory (Table #2)</div>
+    <div class="table-card">
+      <table id="leadsTable">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Verified Email</th>
+            <th>Headquarters</th>
+            <th>Lead Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marcus Vance</td>
+            <td>Apex Hypercloud</td>
+            <td>VP of Engineering</td>
+            <td>m.vance@apexcloud.io</td>
+            <td>Austin, TX</td>
+            <td><span class="badge badge-green">94 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Elena Rostova</td>
+            <td>Krypton Robotics</td>
+            <td>Head of AI Research</td>
+            <td>elena@krypton-robotics.de</td>
+            <td>Berlin, Germany</td>
+            <td><span class="badge badge-green">98 / 100</span></td>
+          </tr>
+          <tr>
+            <td>David Chen</td>
+            <td>FinFlow Technologies</td>
+            <td>Chief Technology Officer</td>
+            <td>dchen@finflow.sg</td>
+            <td>Singapore</td>
+            <td><span class="badge badge-green">91 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Sarah Jenkins</td>
+            <td>Vanguard Media Group</td>
+            <td>Director of Operations</td>
+            <td>sjenkins@vanguardmedia.co.uk</td>
+            <td>London, UK</td>
+            <td><span class="badge badge-yellow">82 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Arjun Patel</td>
+            <td>NeoWave Logistics</td>
+            <td>Founder & CEO</td>
+            <td>arjun@neowavelogistics.in</td>
+            <td>Bengaluru, India</td>
+            <td><span class="badge badge-green">96 / 100</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <link rel="stylesheet" href="content.css">
+  <script src="content.js"></script>
+</body>
+</html>

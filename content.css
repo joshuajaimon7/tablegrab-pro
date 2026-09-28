@@ -1,0 +1,85 @@
+/* TableGrab Pro - Minimalist Professional In-Page Overlay */
+
+.tablegrab-highlight {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+  transition: outline 0.1s ease !important;
+  position: relative !important;
+}
+
+#tablegrab-badge {
+  position: absolute;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0f1219;
+  color: #f8fafc;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  border: 1px solid #232938;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+  user-select: none;
+}
+
+.tablegrab-badge-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #94a3b8;
+  padding-right: 6px;
+  border-right: 1px solid #232938;
+}
+
+.tablegrab-btn {
+  background: #ffffff;
+  color: #0f1219;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: opacity 0.1s ease;
+}
+
+.tablegrab-btn:hover {
+  opacity: 0.9;
+}
+
+.tablegrab-btn-secondary {
+  background: #1c2230;
+  color: #f8fafc;
+  border: 1px solid #2a3346;
+}
+
+.tablegrab-btn-secondary:hover {
+  background: #252d40;
+}
+
+#tablegrab-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2147483647;
+  background: #0f1219;
+  color: #f8fafc;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #232938;
+  box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

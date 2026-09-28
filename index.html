@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableGrab Pro - Instant Table & List Extractor for Chrome</title>
+  <meta name="description" content="Export any HTML table or list on any website to clean CSV, Excel, or JSON in 1 click. Fast, minimal, and 100% private.">
+  <link rel="icon" type="image/png" href="icons/icon48.png">
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #10121a;
+      --surface-subtle: #161922;
+      --border: #1e222d;
+      --border-medium: #2a3040;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover { color: var(--text); }
+    .btn-nav {
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 12.5px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+    .btn-nav:hover { opacity: 0.9; }
+
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px 0;
+      text-align: center;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-medium);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 24px;
+    }
+    .pill-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; }
+    .hero h1 {
+      font-size: clamp(34px, 5.5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 36px auto;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #ffffff;
+      color: #090a0f;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.15s ease;
+    }
+    .btn-primary:hover { opacity: 0.92; }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border-medium);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .btn-secondary:hover { background: var(--surface-subtle); }
+
+    /* Features Grid */
+    .features {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-head h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .section-head p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .card-icon {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+    .pricing-card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .price-amount {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 16px 0 6px 0;
+    }
+    .price-sub {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .pricing-list {
+      list-style: none;
+      text-align: left;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding: 16px;
+      background: var(--surface-subtle);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .pricing-list li { display: flex; align-items: center; gap: 8px; color: var(--text); }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    footer a { color: var(--text-muted); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav>
+        <a href="#" class="brand">
+          <div class="brand-icon">📊</div>
+          <span>TableGrab Pro</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#pricing" class="nav-link">Pricing</a>
+          <a href="privacy.html" class="nav-link">Privacy</a>
+          <a href="#pricing" class="btn-nav">Get Started</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span>Version 1.0 Available for Google Chrome</span>
+      </div>
+      <h1>Extract Any Web Table or List to CSV in One Click</h1>
+      <p>Hover over any table, view instant live previews, and export clean formatted spreadsheets ready for Excel, Google Sheets, or JSON. 100% private and runs entirely in your browser.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn-primary">
+          <span>Add to Chrome</span>
+          <span>→</span>
+        </a>
+        <a href="demo-test.html" class="btn-secondary">View Live Interactive Demo</a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head">
+        <h2>Built for Speed, Accuracy, and Privacy</h2>
+        <p>No messy Python scripts, no slow cloud scrapers.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>In-Page Hover Inspector</h3>
+          <p>Move your cursor over any table on Wikipedia, Yahoo Finance, Amazon, or internal dashboards to see real-time row and column counts.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>100% Offline & Private</h3>
+          <p>Zero data ever leaves your device. All parsing happens locally inside your browser memory. We never track or sell your browsing history.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📋</div>
+          <h3>Sheet-Ready Clipboard</h3>
+          <p>Copy formatted tab-separated values straight to your clipboard and hit ⌘+V directly into Google Sheets or Microsoft Excel.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🗄️</div>
+          <h3>Clean CSV & JSON Formats</h3>
+          <p>RFC 4180 standard escaping handles quotes, commas, and multiline text cleanly without breaking your spreadsheet columns.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Multi-Table Detection</h3>
+          <p>Pages with 5+ tables? The popup lists each table separately with row counts so you can preview and download only what you need.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💎</div>
+          <h3>One-Time Lifetime Access</h3>
+          <p>No predatory recurring subscriptions. Pay once, use forever across all your Chrome browsers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="section-head">
+        <h2>Simple, Transparent Pricing</h2>
+        <p>Start free. Upgrade once when you need unlimited power.</p>
+      </div>
+      <div class="pricing-card">
+        <h3>Lifetime License</h3>
+        <div class="price-amount">$4.99</div>
+        <p class="price-sub">One-time payment • Lifetime updates • Unlimited exports</p>
+        <ul class="pricing-list">
+          <li>✓ Unlimited rows and table exports</li>
+          <li>✓ 1-Click CSV and TSV spreadsheet export</li>
+          <li>✓ Clean JSON structured data export</li>
+          <li>✓ Works on all websites and intranets</li>
+          <li>✓ 100% client-side data privacy</li>
+        </ul>
+        <a href="#" class="btn-primary" style="width: 100%; justify-content: center;">Get Lifetime Access</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 TableGrab Pro by TinyStack Labs. All rights reserved.</p>
+      <div style="margin-top: 10px;">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="demo-test.html">Demo Grounds</a>
+        <a href="https://github.com/joshuajaimon7/tablegrab-pro">GitHub Repository</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
