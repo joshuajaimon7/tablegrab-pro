@@ -56,17 +56,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   modalCloseBtn.addEventListener('click', hideUpgrade);
 
+  const CHECKOUT_URL = "https://micro-software-lab.lemonsqueezy.com/checkout/buy/8008dd64-37fb-40a3-97b0-00a087eb4c43";
+
   startCheckoutBtn.addEventListener('click', () => {
-    // In production, open your Lemon Squeezy checkout link:
-    // chrome.tabs.create({ url: 'https://yourcheckoutlink.lemonsqueezy.com/checkout/buy/...' });
-    
-    // For local testing, 1-click test unlock:
-    if (confirm('Activate TableGrab Pro lifetime license?')) {
-      chrome.storage.local.set({ tablegrab_is_pro: true }, () => {
-        alert('TableGrab Pro license activated.');
-        location.reload();
-      });
-    }
+    chrome.tabs.create({ url: CHECKOUT_URL });
   });
 
   // Open sample demo page
